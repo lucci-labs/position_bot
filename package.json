@@ -1,0 +1,17 @@
+{
+  "name": "position-alert",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@types/node-telegram-bot-api": "^0.64.12",
+    "axios": "^1.13.2",
+    "node-telegram-bot-api": "^0.66.0"
+  }
+}
