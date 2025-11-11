@@ -22,6 +22,16 @@ async function getSymbols(): Promise<string[]> {
   return symbols;
 }
 
+// --- FORMAT NUMBER WITH K/M SUFFIX ---
+function formatPrice(value: number): string {
+  if (value >= 1_000_000) {
+    return (value / 1_000_000).toFixed(2) + "M";
+  } else if (value >= 1_000) {
+    return (value / 1_000).toFixed(2) + "k";
+  }
+  return value.toFixed(2);
+}
+
 async function sendTelegram(text: string) {
   const url = `https://api.telegram.org/bot${token}/sendMessage`;
   const res = await fetch(url, {
@@ -65,7 +75,7 @@ function createStream(symbols: string[], index: number) {
 
     const icon = side == "BUY" ? "🟢" : "🔴";
     const alert =
-      `${icon} <b>#${trade.s}</b> big trade detected: $${notional.toLocaleString(undefined, { maximumFractionDigits: 0 })} at $${price.toFixed(2)}`
+      `${icon} <b>#${trade.s}</b> big trade detected: $${formatPrice(notional)} at $${(price)}`
     // Fire & forget
     sendTelegram(alert).catch(console.error);
   });
